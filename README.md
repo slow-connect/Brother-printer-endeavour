@@ -1,31 +1,17 @@
-# Brother-printer-Manjaro
-How to install a wireless brother printer on Manjaro Linux
+# Brother-printer-Endeavour
+How to install a wireless brother printer on Endeavour OS
 
-pamac install manjaro-printer
+Install cups
+```
+pacman -S cups
+```
 
-sudo gpasswd -a yourusername sys
+Open the cups gui using [http://localhost:631](http://localhost:631)
 
-sudo systemctl enable --now cups.service
+In the GUIs, administation panel, add a new printer, give it a resonable name and select a protocol that is supported. I used `ipp` and wrote down in the printers addres
+```
+ipp://192.168.1.2/ipp/print
+```
 
-sudo systemctl enable --now cups.socket
+When asked for a driver, select `ipp everywhere`
 
-sudo systemctl enable --now cups.path
-
-pamac install avahi
-sudo systemctl enable --now avahi-daemon.service
-
-Install printer firmware from AUR, in my case:
-
-pamac build brother-dcpj1200w
-
-Restart cups
-
-sudo systemctl restart cups.service
-
-Finally add printer 
-
-lpadmin -p DCPJ1200W -E -v ipp://192.168.1.2/ipp/print -m everywhere 
-
-Scanner
-
-pamac build brscan4
